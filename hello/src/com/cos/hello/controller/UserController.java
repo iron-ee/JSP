@@ -16,7 +16,11 @@ import javax.servlet.http.HttpSession;
 import com.cos.hello.config.DBConn;
 import com.cos.hello.dao.UsersDao;
 import com.cos.hello.model.Users;
+import com.cos.hello.service.UserInfoService;
 import com.cos.hello.service.UsersJoinService;
+import com.cos.hello.service.UsersLoginService;
+import com.cos.hello.service.UsersService;
+import com.cos.hello.service.UsersUpdateService;
 
 public class UserController extends HttpServlet{
 	
@@ -47,59 +51,20 @@ public class UserController extends HttpServlet{
 	
 	private void route(String gubun, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		UsersService usersService = new UsersService();
+		
 		if (gubun.equals("login")) {
 			resp.sendRedirect("auth/login.jsp");
 		}else if (gubun.equals("join")) {
 			resp.sendRedirect("auth/join.jsp");
 		}else if (gubun.equals("selectOne")) {		// 유저 정보 보기
-			// 인증이 필요한 페이지
-			String result;
-			HttpSession session = req.getSession();
-			if (session.getAttribute("sessionUser") != null) {		// 인증 끝
-				Users user = (Users)session.getAttribute("sessionUser");
-				result = "인증되었습니다.";
-				System.out.println(user);
-			}else {
-				result = "인증되지않았습니다.";
-			}
-			req.setAttribute("result", result);
-			RequestDispatcher dis = req.getRequestDispatcher("user/selectOne.jsp");
-			dis.forward(req, resp);
+			usersService.유저정보보기(req, resp);
 		}else if (gubun.equals("updateOne")) {
-			resp.sendRedirect("user/updateOne.jsp");
+			usersService.유저정보수정페이지(req, resp);
 		}else if (gubun.equals("joinProc")) {	// 회원가입 수행해줘
-			UsersJoinService usersJoinService = new UsersJoinService();
-			usersJoinService.회원가입(req, resp);
-
-
+			usersService.회원가입(req, resp);
 		}else if (gubun.equals("loginProc")) {
-			// SELECT id, username, email FROM users WHERE username = ? AND email = ?
-			// DAO의 함수명 : login()  return 을 Users 오브젝트를 리턴
-			// 정상 : 세션에 Users 오브젝트 담고 index.jsp
-			// 비정상 : login.jsp
-			
-			// 1번  전달되는 값 받기
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
-			System.out.println("================loginProc Start================");
-			System.out.println(username);
-			System.out.println(password);
-			System.out.println("================loginProc End================");
-			// 2번 데이터베이스 값이 있는 select 해서 확인
-			// 생략
-			Users user = Users.builder()
-					.id(1)
-					.username(username)
-					.build();
-			// 3번
-			HttpSession session = req.getSession();
-			// session에는 사용자 패스워드 절대 넣지 않기
-			session.setAttribute("sessionKey", user);
-//			resp.setHeader("Set-Cookie", "sessionKey=9998");
-			// 모든 응답에는 jSessionid가 쿠키로 추가된다.
-			
-			// 4번 index.jsp 페이지로 이동
-			resp.sendRedirect("index.jsp");
+			usersService.로그인(req, resp);
 		}
 	}
 }
