@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file = "../layout/header.jsp" %>
 <h1>User Manage</h1>
-<form action="updateProc" method="post">
+<form action="/hello/user?gubun=updateProc" method="post">
 	<table border = "1">
 		<tr>
 			<th>번호</th>
@@ -11,7 +11,10 @@
 			<th>이메일</th>
 		</tr>
 		<tr>
-			<td>${user.id}</td>
+			<td>
+				<input type = "hidden" name = "id" value =${user.id}>
+				${user.id}
+			</td>
 			<td>${user.username}</td>
 			<td>
 				<input type = "password" name = "password" value =${user.password}>
@@ -21,6 +24,7 @@
 			</td>
 		</tr>
 	</table>
+	<button>수정하기</button>
 </form>
 </body>
 </html>

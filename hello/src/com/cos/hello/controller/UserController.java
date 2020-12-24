@@ -16,11 +16,8 @@ import javax.servlet.http.HttpSession;
 import com.cos.hello.config.DBConn;
 import com.cos.hello.dao.UsersDao;
 import com.cos.hello.model.Users;
-import com.cos.hello.service.UserInfoService;
-import com.cos.hello.service.UsersJoinService;
-import com.cos.hello.service.UsersLoginService;
 import com.cos.hello.service.UsersService;
-import com.cos.hello.service.UsersUpdateService;
+
 
 public class UserController extends HttpServlet{
 	
@@ -58,13 +55,17 @@ public class UserController extends HttpServlet{
 		}else if (gubun.equals("join")) {
 			resp.sendRedirect("auth/join.jsp");
 		}else if (gubun.equals("selectOne")) {		// 유저 정보 보기
-			usersService.유저정보보기(req, resp);
+			usersService.회원정보보기(req, resp);
 		}else if (gubun.equals("updateOne")) {
-			usersService.유저정보수정페이지(req, resp);
+			usersService.회원정보수정페이지(req, resp);
 		}else if (gubun.equals("joinProc")) {	// 회원가입 수행해줘
 			usersService.회원가입(req, resp);
 		}else if (gubun.equals("loginProc")) {
 			usersService.로그인(req, resp);
+		}else if (gubun.equals("updateProc")) {
+			usersService.회원정보수정(req, resp);
+		}else if (gubun.equals("deleteProc")) {
+			usersService.회원삭제(req, resp);
 		}
 	}
 }

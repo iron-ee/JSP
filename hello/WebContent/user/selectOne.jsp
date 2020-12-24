@@ -18,5 +18,9 @@
 		<td>${user.email}</td>
 	</tr>
 </table>
+<form action="/hello/user?gubun=deleteProc"  method="post">
+	<input type="hidden" name="id" value=${user.id}>
+	<button>삭제</button>
+</form>
 </body>
 </html>
