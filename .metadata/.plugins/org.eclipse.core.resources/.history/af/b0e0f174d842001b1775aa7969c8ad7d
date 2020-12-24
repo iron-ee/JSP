@@ -1,0 +1,97 @@
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import config.DBConnection;
+import lombok.Builder;
+
+@Builder
+
+public class MainApp {
+
+	public static void 추가(int id) {
+		// " " 안에 ; 를 넣으면 절대로 안 됨.   넣는 순간 DB 개 망함
+		String sql = "INSERT INTO test1(id) VALUES(?)";
+		Connection conn = DBConnection.getinstance();
+		// 인터페이스가 적용되어 있는 함수. ( 따로 인터페이스 (프로토콜) 를 만들지 않아도 된다.
+		try {
+			// conn 으로 버퍼를 만들어서 통신해주는 코드.
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void 삭제(int id) {
+		String sql = "DELETE FROM test1 WHERE id = ?";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void 수정(int id) {
+		String sql = "UPDATE test1 SET id  = ?";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+//	public static Dept ã��(int deptno) {
+//		String sql = "SELECT deptno, dname, loc FROM dept WHERE deptno = ?";
+//		Connection conn = DBConnection.getinstance();
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, deptno);
+//			ResultSet rs = pstmt.executeQuery();
+//			if (rs.next()) {
+//				Dept dept = Dept.builder()
+//						.deptno(rs.getInt("deptno"))
+//						.dname(rs.getString("dname"))
+//						.loc(rs.getString("loc"))
+//						.build();
+//				System.out.println(dept);
+//				return dept;
+//				
+//				int deptno2 = rs.getInt("deptno");
+//				String dname =rs.getString("dname");
+//				String loc = rs.getString("loc");
+//				System.out.println(deptno2);
+//				System.out.println(dname);
+//				System.out.println(loc);
+//				
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	
+	public static void main(String[] args) {
+//		�߰�(9);
+//		�߰�(2);
+//		�߰�(3);
+		
+//		����(9);
+		
+//		����(5);
+		
+//		ã��(10);
+	}
+}

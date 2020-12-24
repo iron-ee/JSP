@@ -1,0 +1,29 @@
+package com.cos.hello.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class BoardController extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("BoardController 실행 됨");
+		
+		String gubun = req.getParameter("gubun");
+		System.out.println(gubun);
+		// http://localhost:8500/hello/board?gubun=deleteOne, inserOne, updateOne, selectAll
+		if (gubun.equals("deleteOne.jsp")) {
+			resp.sendRedirect("board/deleteOne.jsp");
+		}else if (gubun.equals("insertOne.jsp")) {
+			resp.sendRedirect("board/insertOne.jsp");
+		}else if (gubun.equals("updateOne.jsp")) {
+			resp.sendRedirect("board/updateOne.jsp");
+		}else if (gubun.equals("selectAll.jsp")) {
+			resp.sendRedirect("board/selectAll.jsp");
+		}
+	}
+}

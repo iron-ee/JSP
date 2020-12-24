@@ -1,0 +1,22 @@
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import config.DBConnection;
+
+public class MainApp {
+
+	public static void main(String[] args) {
+		String sql = "INSERT INTO test1(id) VALUES(1)";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			int result =  pstmt.executeUpdate();
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

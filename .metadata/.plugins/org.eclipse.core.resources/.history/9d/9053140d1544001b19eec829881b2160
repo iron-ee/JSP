@@ -1,0 +1,5 @@
+package com.cos.hello.model;
+
+public class User {
+
+}

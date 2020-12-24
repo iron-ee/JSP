@@ -1,0 +1,11 @@
+package com.cos.hello.dao;
+
+import com.cos.hello.model.Users;
+
+public class UsersDao {
+
+	public int 회원가입(Users user) {
+		
+		return -1;
+	}
+}

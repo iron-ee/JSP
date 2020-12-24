@@ -1,0 +1,28 @@
+package config;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConnection {
+	public static Connection getinstance() {
+		Connection conn = null;
+		
+		// thin => 순수하게 자바 패키지(클래스들)만으로 바로 DB와 연결
+		//  : 로 split 해서 주소를 찾음  ex)  jdbc 를 사용하는 oracl 의 thin 을 사용하겠다 
+		String url = "jdbc:oracle:thin:@";
+		String username= "cos";
+		String password = "1234";
+		
+		// OracleDriver 클래스를 메모리에 로드
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection(url, username, password);
+			System.out.println("DB연결 성공");
+			return conn;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("DB연결 실패");
+		return null;
+	}
+}

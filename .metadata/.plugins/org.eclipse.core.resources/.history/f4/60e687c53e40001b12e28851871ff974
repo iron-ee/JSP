@@ -1,0 +1,52 @@
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import config.DBConnection;
+
+public class MainApp {
+
+	public static void 추가(int id) {
+		String sql = "INSERT INTO test1(id) VALUES(?)";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 변경된 row count를 리턴 , 	-1 값은 오류시에만 리턴 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void 삭제(int id) {
+		String sql = "DELETE FROM test1(id) WHERE id = ?";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 변경된 row count를 리턴 , 	-1 값은 오류시에만 리턴 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void 수정(int id) {
+		String sql = "UPDATE test1 SET id = ?";
+		Connection conn = DBConnection.getinstance();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			int result =  pstmt.executeUpdate();	// 변경된 row count를 리턴 , 	-1 값은 오류시에만 리턴 
+			System.out.println("result : "+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main(String[] args) {
+		추가(9);
+	}
+}

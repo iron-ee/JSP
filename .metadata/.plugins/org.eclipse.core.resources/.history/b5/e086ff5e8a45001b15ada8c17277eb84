@@ -1,0 +1,37 @@
+package com.cos.hello.service;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.cos.hello.dao.UsersDao;
+import com.cos.hello.model.Users;
+
+public class UsersJoinService {
+	
+	public void 회원가입 ((HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException) {
+
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
+		String email = req.getParameter("email");
+		// req.getParameter  => 얘가 다 알아서 파싱 해줌   그냥 개 꿀
+	
+		System.out.println("================joinProc Start================");
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(email);
+		System.out.println("================joinProc End================");
+		
+		Users user = Users.builder()
+				.username(username)
+				.password(password)
+				.email(email)
+				.build();
+		
+		UsersDao usersDao = new UsersDao();
+		int result = usersDao.insert(user);
+	}
+}
+

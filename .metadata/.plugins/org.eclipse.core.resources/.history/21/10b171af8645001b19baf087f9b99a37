@@ -1,0 +1,9 @@
+package com.cos.hello.dao;
+
+public class UsersDao {
+
+	public int 회원가입(String username, String password, String email) {
+		
+		return -1;
+	}
+}

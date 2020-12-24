@@ -1,0 +1,8 @@
+package com.cos.hello.controller;
+
+// javax로 시작하는 패키지는 톰캣이 들고있는 라이브러리  
+import javax.servlet.http.HttpServlet;
+
+public class FrontController extends HttpServlet{
+
+}

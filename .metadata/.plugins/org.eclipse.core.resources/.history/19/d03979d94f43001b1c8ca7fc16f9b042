@@ -1,0 +1,35 @@
+package com.cos.hello.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/Comment")
+public class Comment extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
+    public Comment() {
+        super();
+    }
+
+    // http1.0 프로토콜 = SELECT(get), DELETE, UPDATE, INSERT(post)
+    // http1.1 프로토콜 = SELECT(get), DELETE(delete), UPDATE(put), INSERT(post)
+    
+    // get 요청은 브라우저에 주소적고 엔터 !  = SELECT
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	// post 요청은 FORM태그 만들고 요청  = INSERT, DELETE, UPDATE
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		doGet(request, response);
+	}
+
+}
