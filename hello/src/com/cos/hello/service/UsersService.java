@@ -10,22 +10,26 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cos.hello.dao.UsersDao;
+import com.cos.hello.dto.JoinDto;
+import com.cos.hello.dto.LoginDto;
 import com.cos.hello.model.Users;
 import com.cos.hello.util.Script;
 
 public class UsersService {
 
 	public void 로그인(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-
-		Users user = Users.builder()
-				.username(username)
-				.password(password)
-				.build();
+//		String username = req.getParameter("username");
+//		String password = req.getParameter("password");
+//
+//		Users user = Users.builder()
+//				.username(username)
+//				.password(password)
+//				.build();
+		
+		LoginDto loginDto = (LoginDto)req.getAttribute("dto");
 
 		UsersDao userDao = new UsersDao();
-		Users userEntity = userDao.login(user);
+		Users userEntity = userDao.login(loginDto);
 
 		if (userEntity != null) {
 			HttpSession session = req.getSession();
@@ -35,39 +39,41 @@ public class UsersService {
 			// 한글처리를 위해 resp 객체를 건드린다
 			// MIME 타입
 			// Http Header에 Content-Type
-			Script.href(resp, "index.jsp", "Login Success");
+			Script.href(resp, "index.jsp", "로그인 성공");
 			
 		} else {
-			Script.back(resp, "Login Fail");
+			Script.back(resp, "로그인 실패");
 		}
 
 	}
 
 	public void 회원가입(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		// 1번 form의 input 태그에 있는 3가지 값 username, password, email 받기
-
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		String email = req.getParameter("email");
-		// req.getParameter => 얘가 다 알아서 파싱 해줌 그냥 개 꿀
-
-		System.out.println("================joinProc Start================");
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println(email);
-		System.out.println("================joinProc End================");
-
-		// 2번 DB에 연결해서 3가지 값을 INSERT 하기
-
-		Users user = Users.builder()
-				.username(username)
-				.password(password)
-				.email(email)
-				.build();
+//		// 1번 form의 input 태그에 있는 3가지 값 username, password, email 받기
+//
+//		String username = req.getParameter("username");
+//		String password = req.getParameter("password");
+//		String email = req.getParameter("email");
+//		// req.getParameter => 얘가 다 알아서 파싱 해줌 그냥 개 꿀
+//
+//		System.out.println("================joinProc Start================");
+//		System.out.println(username);
+//		System.out.println(password);
+//		System.out.println(email);
+//		System.out.println("================joinProc End================");
+//
+//		// 2번 DB에 연결해서 3가지 값을 INSERT 하기
+//
+//		Users user = Users.builder()
+//				.username(username)
+//				.password(password)
+//				.email(email)
+//				.build();
+		
+		JoinDto joinDto = (JoinDto)req.getAttribute("dto");
 
 		UsersDao usersDao = new UsersDao();
-		int result = usersDao.insert(user);
+		int result = usersDao.insert(joinDto);
 
 		if (result == 1) {
 			// 3번 INSERT가 정상적으로 되었다면 index.jsp를 응답하기 !

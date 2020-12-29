@@ -18,6 +18,7 @@ public class Script {
 	}
 	
 	public static void href(HttpServletResponse resp, String url, String msg) throws ServletException, IOException{
+		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
 		out.println("<script>");
 		out.println("alert('"+msg+"');");
